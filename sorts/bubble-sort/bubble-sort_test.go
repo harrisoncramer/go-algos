@@ -1,10 +1,10 @@
-package main
+package sorts
 
 import (
 	"reflect"
 	"testing"
 
-	"github.com/harrisoncramer/golang-algos/sorts/specs"
+	specs "github.com/harrisoncramer/golang-algos/sorts/specs"
 )
 
 func TestBubbleSort(t *testing.T) {

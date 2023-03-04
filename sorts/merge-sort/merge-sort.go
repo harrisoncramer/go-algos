@@ -1,4 +1,4 @@
-package main
+package sorts
 
 /*
 Merge sort is a divide and conquer algorithm. First, recursively

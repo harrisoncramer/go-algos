@@ -1,4 +1,4 @@
-package main
+package sorts
 
 /*
 As you proceed through the elements of an array you continuously

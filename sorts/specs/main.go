@@ -1,4 +1,4 @@
-package specs
+package sorts
 
 type Test struct {
 	Input []int

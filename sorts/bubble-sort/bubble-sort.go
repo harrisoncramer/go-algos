@@ -1,4 +1,4 @@
-package main
+package sorts
 
 /*
 In a nested loop, compare the value at i to
