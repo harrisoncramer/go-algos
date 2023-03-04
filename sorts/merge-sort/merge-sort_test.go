@@ -3,6 +3,8 @@ package main
 import (
 	"reflect"
 	"testing"
+
+	"github.com/harrisoncramer/golang-algos/sorts/specs"
 )
 
 /*
@@ -11,8 +13,6 @@ swap the target back with it's neighbor until it is in
 the correct place. When it's moved, move your index up.
 */
 func TestMergeSort(t *testing.T) {
-	input := []int{3, 1, 6, -10, 54, 3, 2}
-	want := []int{-10, 1, 2, 3, 3, 6, 54}
 
 	t.Run("Should merge two sorted arrays", func(t *testing.T) {
 		start := []int{3, 6, 9, 10}
@@ -26,9 +26,11 @@ func TestMergeSort(t *testing.T) {
 	})
 
 	t.Run("Should sort the items", func(t *testing.T) {
-		got := mergeSort(input)
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("Got %v but wanted %v", got, want)
+		for _, test := range specs.MakeTests() {
+			got := mergeSort(test.Input)
+			if !reflect.DeepEqual(got, test.Want) {
+				t.Errorf("Got %v but wanted %v", got, test.Want)
+			}
 		}
 	})
 
