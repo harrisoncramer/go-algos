@@ -10,7 +10,7 @@ import (
 func TestQuickSort(t *testing.T) {
 	t.Run("Should sort the items", func(t *testing.T) {
 		for _, test := range specs.MakeTests() {
-			got := quickSort(test.Input)
+			got := QuickSort(test.Input)
 			if !reflect.DeepEqual(got, test.Want) {
 				t.Errorf("Got %v but wanted %v", got, test.Want)
 			}
