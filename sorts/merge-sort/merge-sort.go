@@ -34,14 +34,14 @@ func Merge(a []int, b []int) []int {
 	return res
 }
 
-func mergeSort(arr []int) []int {
+func MergeSort(arr []int) []int {
 	if len(arr) <= 1 {
 		return arr
 	}
 
 	/* Using the same index splits the array evenly
 	without losing any values */
-	a := mergeSort(arr[0 : len(arr)/2])
-	b := mergeSort(arr[len(arr)/2:])
+	a := MergeSort(arr[0 : len(arr)/2])
+	b := MergeSort(arr[len(arr)/2:])
 	return Merge(a, b)
 }

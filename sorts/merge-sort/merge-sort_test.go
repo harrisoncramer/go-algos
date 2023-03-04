@@ -27,7 +27,7 @@ func TestMergeSort(t *testing.T) {
 
 	t.Run("Should sort the items", func(t *testing.T) {
 		for _, test := range specs.MakeTests() {
-			got := mergeSort(test.Input)
+			got := MergeSort(test.Input)
 			if !reflect.DeepEqual(got, test.Want) {
 				t.Errorf("Got %v but wanted %v", got, test.Want)
 			}
@@ -35,7 +35,7 @@ func TestMergeSort(t *testing.T) {
 	})
 
 	t.Run("Should handle an empty array", func(t *testing.T) {
-		got := mergeSort([]int{})
+		got := MergeSort([]int{})
 		if !reflect.DeepEqual(got, []int{}) {
 			t.Error("Could not handle empty array")
 		}
