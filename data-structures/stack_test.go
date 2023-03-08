@@ -38,6 +38,17 @@ func TestStack(t *testing.T) {
 			t.Errorf("Got %d but wanted %d", got, want)
 		}
 
+		got, err = stack.Pop()
+
+		if err != nil {
+			t.Errorf("Error when popping from stack: %v", err)
+		}
+
+		want = 3
+		if got != want {
+			t.Errorf("Got %d but wanted %d", got, want)
+		}
+
 	})
 
 	t.Run("Should error if no items and removing value", func(t *testing.T) {
