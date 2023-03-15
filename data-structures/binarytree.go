@@ -17,18 +17,77 @@ func (n *BinaryTree) Add(v int) *BinaryTree {
 	return n
 }
 
-func (tree *BinaryTree) DepthFirstSearchPrint(result []int) []int {
+func (tree *BinaryTree) DFSReverseOrder(result []int) []int {
+
+	if tree.right != nil {
+		result = tree.right.DFSReverseOrder(result)
+	}
+
+	result = append(result, tree.value)
 
 	if tree.left != nil {
-		result = tree.left.DepthFirstSearchPrint(result)
+		result = tree.left.DFSReverseOrder(result)
+	}
+
+	return result
+
+}
+
+func (tree *BinaryTree) DFSInOrder(result []int) []int {
+
+	if tree.left != nil {
+		result = tree.left.DFSInOrder(result)
 	}
 
 	result = append(result, tree.value)
 
 	if tree.right != nil {
-		result = tree.right.DepthFirstSearchPrint(result)
+		result = tree.right.DFSInOrder(result)
 	}
 
 	return result
+
+}
+
+func (tree *BinaryTree) DFS(v int) bool {
+	if tree.value < v {
+		if tree.right == nil {
+			return false
+		}
+		return tree.right.DFS(v)
+	} else if tree.value > v {
+		if tree.left == nil {
+			return false
+		}
+		return tree.left.DFS(v)
+	}
+
+	return true
+}
+
+func (tree *BinaryTree) BFS(v int) bool {
+	q := Queue[*BinaryTree]{}
+	q.Init()
+	q.Enqueue(tree)
+
+	val, err := q.Dequeue()
+
+	/* Error indicates queue is empty */
+	for err == nil {
+		if val.value == v {
+			return true
+		} else {
+			if val.left != nil {
+				q.Enqueue(val.left)
+			}
+			if val.right != nil {
+				q.Enqueue(val.right)
+			}
+		}
+
+		val, err = q.Dequeue()
+	}
+
+	return false
 
 }
