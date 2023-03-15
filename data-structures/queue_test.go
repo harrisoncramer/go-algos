@@ -11,13 +11,13 @@ func TestQueue(t *testing.T) {
 		q := Queue{}
 		q.Init()
 
-		q.Enqueue(QueueItem(3))
-		q.Enqueue(QueueItem(4))
-		q.Enqueue(QueueItem(6))
-		q.Enqueue(QueueItem(1))
+		q.Enqueue(3)
+		q.Enqueue(4)
+		q.Enqueue(6)
+		q.Enqueue(1)
 
-		got := q.Read()
-		want := []QueueItem{3, 4, 6, 1}
+		got := q.values
+		want := map[int]interface{}{0: 3, 1: 4, 2: 6, 3: 1}
 
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %v but wanted %v", got, want)
@@ -39,16 +39,17 @@ func TestQueue(t *testing.T) {
 		}
 
 		want := 3
+		gotInt := 3
 
-		if got != QueueItem(want) {
-			t.Errorf("Got %d but wanted %d", got, want)
+		if got != want {
+			t.Errorf("Got %d but wanted %d", gotInt, want)
 		}
 
 		remainder := q.Read()
-		wantRemainder := []QueueItem{4, 6}
+		wantRemainder := []interface{}{4, 6}
 
 		if !reflect.DeepEqual(remainder, wantRemainder) {
-			t.Errorf("Got %v but wanted %v", got, want)
+			t.Errorf("Got %v but wanted %v", remainder, wantRemainder)
 		}
 	})
 
