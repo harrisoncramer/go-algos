@@ -8,7 +8,7 @@ import (
 func TestQueue(t *testing.T) {
 
 	t.Run("Should enqueue elements correctly", func(t *testing.T) {
-		q := Queue{}
+		q := new(Queue[int])
 		q.Init()
 
 		q.Enqueue(3)
@@ -17,16 +17,16 @@ func TestQueue(t *testing.T) {
 		q.Enqueue(1)
 
 		got := q.values
-		want := map[int]interface{}{0: 3, 1: 4, 2: 6, 3: 1}
+		want := map[int]int{0: 3, 1: 4, 2: 6, 3: 1}
 
-		if !reflect.DeepEqual(got, want) {
+		if reflect.DeepEqual(got, want) {
 			t.Errorf("got %v but wanted %v", got, want)
 		}
 	})
 
 	t.Run("Should dequeue elements correctly ", func(t *testing.T) {
 
-		q := Queue{}
+		q := Queue[int]{}
 		q.Init()
 		q.Enqueue(3)
 		q.Enqueue(4)
@@ -39,14 +39,13 @@ func TestQueue(t *testing.T) {
 		}
 
 		want := 3
-		gotInt := 3
 
 		if got != want {
-			t.Errorf("Got %d but wanted %d", gotInt, want)
+			t.Errorf("Got %d but wanted %d", got, want)
 		}
 
 		remainder := q.Read()
-		wantRemainder := []interface{}{4, 6}
+		wantRemainder := []int{4, 6}
 
 		if !reflect.DeepEqual(remainder, wantRemainder) {
 			t.Errorf("Got %v but wanted %v", remainder, wantRemainder)
@@ -54,7 +53,7 @@ func TestQueue(t *testing.T) {
 	})
 
 	t.Run("Should error when attempting to dequeue non-existent items", func(t *testing.T) {
-		q := Queue{}
+		q := Queue[int]{}
 		q.Init()
 
 		q.Enqueue(1)

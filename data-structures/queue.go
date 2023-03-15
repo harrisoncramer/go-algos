@@ -4,25 +4,26 @@ import (
 	"errors"
 )
 
-type Queue struct {
+type Queue[T any] struct {
 	pointer int
 	index   int
-	values  map[int]interface{}
+	values  map[int]T
 }
 
-func (q *Queue) Init() *Queue {
-	q.values = make(map[int]interface{})
+func (q *Queue[T]) Init() *Queue[T] {
+	q.values = make(map[int]T)
 	return q
 }
 
-func (q *Queue) Enqueue(item interface{}) {
+func (q *Queue[T]) Enqueue(item T) {
 	q.values[q.index] = item
 	q.index += 1
 }
 
-func (q *Queue) Dequeue() (interface{}, error) {
+func (q *Queue[T]) Dequeue() (T, error) {
 	if q.pointer == q.index {
-		return 0, errors.New("This queue is empty")
+		var empty T
+		return empty, errors.New("This queue is empty")
 	}
 
 	value := q.values[q.pointer]
@@ -32,8 +33,8 @@ func (q *Queue) Dequeue() (interface{}, error) {
 	return value, nil
 }
 
-func (q *Queue) Read() []interface{} {
-	var result []interface{}
+func (q *Queue[T]) Read() []T {
+	var result []T
 	for _, value := range q.values {
 		result = append(result, value)
 	}
