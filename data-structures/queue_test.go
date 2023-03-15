@@ -19,7 +19,7 @@ func TestQueue(t *testing.T) {
 		got := q.values
 		want := map[int]int{0: 3, 1: 4, 2: 6, 3: 1}
 
-		if reflect.DeepEqual(got, want) {
+		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %v but wanted %v", got, want)
 		}
 	})
