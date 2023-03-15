@@ -14,7 +14,7 @@ func TestLinkedList(t *testing.T) {
 
 		want := []int{5, 6, 7}
 		got := ll.Traverse()
-		if reflect.DeepEqual(got, want) {
+		if !reflect.DeepEqual(got, want) {
 			t.Errorf("Got %v but wanted %v", got, want)
 		}
 	})
@@ -73,7 +73,7 @@ func TestLinkedList(t *testing.T) {
 
 		want := []int{4, 5, 6, 7}
 		got := ll.Traverse()
-		if reflect.DeepEqual(got, want) {
+		if !reflect.DeepEqual(got, want) {
 			t.Errorf("Got %v but wanted %v", got, want)
 		}
 
