@@ -14,6 +14,10 @@ Contains linked list, binary search trees, stack, and queue.
 
 Contains bubble sort, merge sort, quick sort, and insertion sort.
 
+## Challenges
+
+Miscellaneous coding challenges.
+
 ## Tests
 
 Run `go test ./...` at the root level to run all tests for all packages.
