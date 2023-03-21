@@ -6,41 +6,49 @@ import (
 	"time"
 )
 
-/* We can use the context package to time out a request after a given amount of time */
-type Response struct {
-	value int
-	err   error
+type User struct {
+	name  string
+	email string
 }
 
-func fetchUserData(ctx context.Context, userId int, duration time.Duration) (int, error) {
+type Response struct {
+	value User
+	error error
+}
 
-	ctx, cancel := context.WithTimeout(ctx, time.Millisecond*duration)
+func fetchUserData(ctx context.Context, userId int, timeout time.Duration) (*User, error) {
+
+	ctx, cancel := context.WithTimeout(ctx, time.Millisecond*timeout)
 	defer cancel()
 
 	respch := make(chan Response)
+
 	go func() {
-		val, err := fetchThirdPartyStuffWhichCanBeSlow(userId)
+		user, err := slowApiCall(userId)
 		respch <- Response{
-			value: val,
-			err:   err,
+			value: user,
+			error: err,
 		}
 	}()
 
 	for {
 		select {
-		case <-ctx.Done():
-			return 0, errors.New("Request timed out")
 		case resp := <-respch:
-			return resp.value, resp.err
-
+			return &resp.value, resp.error
+		case <-ctx.Done():
+			return nil, errors.New("Request timed out")
 		}
 	}
-
 }
 
-func fetchThirdPartyStuffWhichCanBeSlow(userId int) (int, error) {
-	time.Sleep(500 * time.Millisecond)
+/* Some slow API call that eventually returns the user */
+func slowApiCall(userId int) (User, error) {
+	time.Sleep(200 * time.Millisecond)
+	res := User{
+		name:  "sam",
+		email: "sam@google.com",
+	}
 
-	/* We could do some sort of real work */
-	return userId * 10, nil
+	return res, nil
+
 }
