@@ -8,7 +8,7 @@ import (
 
 func TestSimpleHandler(t *testing.T) {
 	t.Run("Should test a handler", func(t *testing.T) {
-		request, err := http.NewRequest("GET", "/health-check", nil)
+		request, err := http.NewRequest(http.MethodGet, "/health-check", nil)
 		if err != nil {
 			t.Errorf("Got error during request creation: %v", err)
 		}
