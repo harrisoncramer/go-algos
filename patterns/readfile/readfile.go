@@ -37,6 +37,17 @@ func ReadFile(filepath string) error {
 func ReadLarge(filepath string) error {
 	file, err := os.Open(filepath)
 	if err != nil {
+
+		/* We can provide more context to the error by wrapping it with fmt.Errorf and the %w format verb */
+		if os.IsNotExist(err) {
+			return fmt.Errorf("File does not exist: %w", err)
+		} else if os.IsPermission(err) {
+			return fmt.Errorf("Permissions error: %w", err)
+		} else {
+			return err
+		}
+	}
+	if err != nil {
 		return errors.New("Could not open file: " + err.Error())
 	}
 
